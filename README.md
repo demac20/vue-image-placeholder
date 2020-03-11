@@ -2,6 +2,11 @@
 
 [![Build Status](https://travis-ci.org/demac2014/vue-image-placeholder.svg?branch=master)](https://travis-ci.org/demac2014/vue-image-placeholder) [![codecov](https://codecov.io/gh/demac2014/vue-image-placeholder/branch/master/graph/badge.svg)](https://codecov.io/gh/demac2014/vue-image-placeholder)
 
+
+## Acknowledgements
+
+This project is a copy of the Vue Image Placeholder created by [Andrea Stagi](https://github.com/astagi/vue-image-placeholder)
+
 ## Installation
 
 ```sh
