@@ -9,11 +9,62 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class ImagePlaceholder extends Vue {
   @Prop({ required: true }) readonly width!: number;
   @Prop({ required: false }) readonly height!: number;
-  @Prop({ required: false, default: "random" }) readonly images!: string;
+  @Prop({ required: false }) readonly images!: string;
+  @Prop({ required: false }) readonly text!: string;
+  @Prop({ required: false }) readonly background!: string;
+  @Prop({ required: false }) readonly foreground!: string;
 
-  get url() {
-    // eslint-disable-next-line prettier/prettier
-    return `https://loremflickr.com/${this.width}/${this.height || this.width}/${this.images}`;
+  get url(): string {
+    switch (this.images) {
+      case "murray":
+        return this.getBillMurrayUrl();
+      case "seagal":
+        return this.getStevenSegalUrl();
+      case undefined:
+        return this.getViaPlaceholderUrl();
+      default:
+        return this.getLoremFlickrUrl();
+    }
+  }
+
+  private getBaseUrl(host: string): URL {
+    const finalUrl = new URL(`https://${host}/`);
+    finalUrl.pathname = `/${this.width}`;
+    finalUrl.pathname += `/${this.height || this.width}`;
+    return finalUrl;
+  }
+
+  private getViaPlaceholderUrl(): string {
+    const finalUrl = new URL("https://via.placeholder.com/");
+    finalUrl.pathname = `/${this.width}x${this.height || this.width}`;
+    if (this.background) {
+      finalUrl.pathname += `/${this.background.replace("#", "")}`;
+    }
+    if (this.foreground) {
+      finalUrl.pathname += `/${this.foreground.replace("#", "")}`;
+    }
+    if (this.text) {
+      finalUrl.searchParams.append("text", this.text);
+    }
+    return finalUrl.href;
+  }
+
+  private getLoremFlickrUrl(): string {
+    const finalUrl = this.getBaseUrl("loremflickr.com");
+    if (this.images.includes(",")) {
+      finalUrl.pathname += `/${this.images}/all`;
+    } else {
+      finalUrl.pathname += `/${this.images.replace("|", ",")}`;
+    }
+    return finalUrl.href;
+  }
+
+  private getBillMurrayUrl(): string {
+    return this.getBaseUrl("www.fillmurray.com").href;
+  }
+
+  private getStevenSegalUrl(): string {
+    return this.getBaseUrl("www.stevensegallery.com").href;
   }
 }
 </script>

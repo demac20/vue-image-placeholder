@@ -1,0 +1,144 @@
+import { shallowMount } from "@vue/test-utils";
+import ImagePlaceholder from "@/ImagePlaceholder.vue";
+
+describe("ImagePlaceholder.vue", () => {
+  it("renders the correct url for New York images", () => {
+    // tslint:disable-next-line:typedef
+    const wrapper = shallowMount(ImagePlaceholder, {
+      propsData: { width: 500, height: 200, images: "newyork" }
+    });
+    expect(
+      wrapper
+        .findAll("img")
+        .at(0)
+        .attributes().src
+    ).toEqual("https://loremflickr.com/500/200/newyork");
+  }),
+    it("renders AND images if images is a comma separated value", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, height: 200, images: "cat,animals" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://loremflickr.com/500/200/cat,animals/all");
+    }),
+    it("renders OR images if images is a pipe separated value", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, height: 200, images: "cat|animals" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://loremflickr.com/500/200/cat,animals");
+    }),
+    it("renders the correct url for Bill Murray images", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, height: 200, images: "murray" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://www.fillmurray.com/500/200");
+    }),
+    it("renders a squared Bill Murray", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, images: "murray" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://www.fillmurray.com/500/500");
+    }),
+    it("renders the correct url for Steven Seagal images", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, height: 200, images: "seagal" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://www.stevensegallery.com/500/200");
+    }),
+    it("renders a squared Steven Seagal", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, images: "seagal" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://www.stevensegallery.com/500/500");
+    }),
+    it("renders a standard placeholder if no image is defined", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 420, height: 320 }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://via.placeholder.com/420x320");
+    }),
+    it("renders a squared standard placeholder if height is not specified", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500 }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://via.placeholder.com/500x500");
+    }),
+    it("renders a standard placeholder with text if specified", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: { width: 500, text: "Hello Vue!" }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual("https://via.placeholder.com/500x500?text=Hello+Vue%21");
+    }),
+    it("renders a standard placeholder with text, foreground and background colors", () => {
+      // tslint:disable-next-line:typedef
+      const wrapper = shallowMount(ImagePlaceholder, {
+        propsData: {
+          width: 250,
+          text: "Hello Vue!",
+          foreground: "#34495e",
+          background: "#41B883"
+        }
+      });
+      expect(
+        wrapper
+          .findAll("img")
+          .at(0)
+          .attributes().src
+      ).toEqual(
+        "https://via.placeholder.com/250x250/41B883/34495e?text=Hello+Vue%21"
+      );
+    });
+});
