@@ -1,5 +1,7 @@
 # Vue Image Placeholder
 
+[![Build Status](https://travis-ci.org/demac2014/vue-image-placeholder.svg?branch=master)](https://travis-ci.org/demac2014/vue-image-placeholder)
+
 ## Installation
 
 ```sh
