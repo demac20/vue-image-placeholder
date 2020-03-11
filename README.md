@@ -22,6 +22,17 @@ Render an image with `cats` from [LoremFlickr](https://loremflickr.com/) service
 
 <img src="https://loremflickr.com/500/250/cats"/>
 
+Image Placeholder component also supports [Placeholder.com](https://placeholder.com/) service, use `text` to show a label in the placeholder
+
+```html
+<ImagePlaceholder
+  width=250 text="Hello Vue!"
+  foreground="#34495e" background="#41B883"
+/>
+```
+
+<img src="https://via.placeholder.com/250x250/41B883/34495e?text=Hello+Vue%21"/>
+
 
 ## Properties
 
@@ -29,10 +40,20 @@ Render an image with `cats` from [LoremFlickr](https://loremflickr.com/) service
 
 `height` final image height (default is equal to width)
 
-`images` category/categories for the image
+`images` category/categories for the image (if not specified the main service used is [https://placeholder.com/](https://placeholder.com/)):
   - `single value` returns an image of one category (e.g. 'cats').
   - `comma separated value` returns an image belonging to both categories (e.g. 'animals,cat').
   - `pipe separated value` returns an image belonging to one of the categories (e.g. 'animal|cats').
+  - `'murray' `returns an image of Bill Murray from [Fill Murray](https://www.fillmurray.com/) service.
+  - `'seagal'` return an image of Steve Seagal from [Steven Segallery](https://www.stevensegallery.com/) service.
+
+The following properties are only for `Placeholder.com` service:
+
+`text` text to show inside the image.
+
+`background` background color for the placeholder (e.g. #000000).
+
+`foreground` foreground color for the placeholder (e.g. #FFFFFF).
 
 ## Project setup for development
 ```
